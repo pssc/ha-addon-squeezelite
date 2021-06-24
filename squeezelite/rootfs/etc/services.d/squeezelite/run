@@ -1,0 +1,72 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Community Add-on: Squeezelite
+# Runs squeezelite with given options
+# ==============================================================================
+declare -a options
+declare name
+declare server
+declare output
+declare clientmac
+declare loglevel
+
+bashio::log.info 'Starting the Squeezelite options processing...'
+
+#Are we running in debug mode?
+if bashio::debug; then
+  loglevel=debug
+else
+  loglevel=info
+fi
+
+#If a server is set, update the options (autodiscover if not)
+if bashio::config.has_value 'server'; then
+  server=$(bashio::config 'server')
+  options+=( -s ${server})
+fi
+
+#Set variables from config
+
+# namefile fixme
+if bashio::config.has_value 'name';then
+   name="-n '$(bashio::config 'name')'"
+else
+   if [ ! -r /data/name ];then
+      echo "HA-Addon-Squeezelite" >/data/name
+   fi
+   name="-N /data/name"
+fi
+
+if bashio::config.has_value 'output';then
+   output="-o $(bashio::config 'output')"
+else
+   output=""
+fi
+
+# set or random
+if bashio::config.has_value 'clientmac'; then
+   clientmac=$(bashio::config 'clientmac')
+else
+   if [ ! -r /data/mac ];then
+      openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/:$//' >/data/mac
+   fi
+   clientmac=$(</data/mac)
+fi
+
+if bashio::config.has_value 'options'; then
+  options+=($(bashio::config 'options'))
+fi
+
+#Show possible outputs (easier to change outputs)
+bashio::log.info 'Squeezelite possible outputs...'  
+squeezelite -l
+
+#FYI for launch options
+bashio::log.info 'name = ' ${name}
+bashio::log.info 'clientmac = ' ${clientmac}
+bashio::log.info 'sounddevice = ' ${output}
+bashio::log.info 'options = ' ${options[@]}
+
+#Start the squeezelite client
+bashio::log.info 'Starting squeezelite player...'  
+squeezelite ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}

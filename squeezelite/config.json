@@ -16,6 +16,7 @@
   "udev": true,
   "audio": true,
   "full_access": true,
+  "stage": "experimental",
   "options": {
   },
   "schema": {

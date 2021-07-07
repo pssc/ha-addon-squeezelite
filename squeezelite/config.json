@@ -1,11 +1,11 @@
 {
   "name": "Squeezelite",
-  "version": "0.07",
+  "version": "0.08",
   "slug": "squeezelite",
   "description": "Squeezelite player for Logitech Media Server on home assistant",
   "url": "https://github.com/pssc/ha-addon-squeezelite",
   "startup": "services",
-  "arch": ["aarch64", "armv7", "amd64", "i386"],
+  "arch": ["aarch64", "armhf", "armv7", "amd64", "i386"],
   "map": ["config:rw"],
   "boot": "auto",
   "hassio_api": true,

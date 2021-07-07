@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/debian-base:4.2.1
+ARG BUILD_FROM=hassioaddons/debian-base:4.2.2
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM} AS base
 
@@ -11,16 +11,12 @@ ENV LC_ALL="C.UTF-8"
 ENV LANG="en_US.UTF-8" 
 ENV LANGUAGE="en_US.UTF-8" 
 
-# Build arguments
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_REF
-ARG BUILD_VERSION
-
 # Upgrading the operating system inside the container
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold" && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 FROM base AS builder
+ARG SL_COMMIT=556de5689d27b4440adbfeb3c3012da02dbf438e
+
 # Install Squeezelite
 RUN apt-get -qq -y update && \
     apt-get --no-install-recommends --no-install-suggests -qq -y install \
@@ -43,10 +39,19 @@ RUN apt-get -qq -y update && \
     faad \
     git \
     build-essential
-RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile.pa #OPTS="-DDSD"
+#RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile.pa OPTS="-DDSD"
+#RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile OPTS="-DDSD"
+RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && git checkout ${SL_COMMIT} && make -f Makefile OPTS="-DDSD -DRESAMPLE -DVISEXPORT"
+RUN if [ -x /tmp//tmp/squeezelite/squeezelite-pa ];then mv /tmp/squeezelite/squeezelite-pa /tmp/squeezelite/squeezelite;fi
 #  -DOPUS -DALAC -DRESAMPLE -DVISEXPORT -DDSD -DIR -DGPIO -DRPI -DUSE_SSL -DLINKALL -I./include -I./include/opus -I./include/alac 
 
 FROM base
+
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_REF
+ARG BUILD_VERSION
+
 RUN apt-get -qq -y update && \
     apt-get --no-install-recommends --no-install-suggests -qq -y install \
     openssl \
@@ -68,7 +73,7 @@ RUN apt-get -qq -y update && \
     libflac8 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/run/*
 COPY rootfs /
-COPY --from=builder /tmp/squeezelite/squeezelite-pa /usr/local/bin/squeezelite
+COPY --from=builder /tmp/squeezelite/squeezelite /usr/local/bin/squeezelite
 
 # Labels
 LABEL \

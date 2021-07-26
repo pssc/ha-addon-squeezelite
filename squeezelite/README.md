@@ -13,7 +13,7 @@ Please visit [Logitech Media Server Add-on](https://github.com/pssc/ha-addon-lms
 
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2021.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-beta-yellow.svg
-[release-shield]: https://img.shields.io/badge/version-v0.08-yellow.svg
+[release-shield]: https://img.shields.io/badge/version-v0.09-yellow.svg
 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-green.svg

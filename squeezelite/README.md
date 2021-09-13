@@ -24,4 +24,7 @@ Please visit [Logitech Media Server Add-on](https://github.com/pssc/ha-addon-lms
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg
 
 [squeezelite]: https://github.com/ralph-irving/squeezelite
-[lms]: https://downloads.slimdevices.com/
+[lms]: https://forums.slimdevices.com/
+
+## Support
+Create an [issue on github](https://github.com/pssc/ha-addon-squeezelite/issues), or if its a general query ask on the [home assistant thread](https://community.home-assistant.io/t/home-assistant-community-addon-logitech-media-server-lms/338137)

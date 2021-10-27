@@ -27,7 +27,8 @@ Override name for the player (only English Ascii chars are supported)
 
 ### Option (optional): `output`
 Audio output device. Please check the log after startup for a list of possible outputs \
-defult will typically be the HA pulse audio.
+defult will typically be the HA pulse audio. Using this option casues the addon to use the alsa build \
+rather than the pulse audio build.
 
 ### Option (optional): `clientmac`
 A "dummy mac" to make the player unique otherwise a random one is generated per install.

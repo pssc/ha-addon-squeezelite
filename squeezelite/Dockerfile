@@ -1,4 +1,4 @@
-ARG BUILD_FROM=hassioaddons/debian-base:4.2.2
+ARG BUILD_FROM=hassioaddons/debian-base:4.2.3
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM} AS base
 
@@ -15,7 +15,7 @@ ENV LANGUAGE="en_US.UTF-8"
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold" && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 FROM base AS builder
-ARG SL_COMMIT=556de5689d27b4440adbfeb3c3012da02dbf438e
+ARG SL_COMMIT=d3e3ed187ccc4c85785ea731c854dec7889f59b8
 
 # Install Squeezelite
 RUN apt-get -qq -y update && \
@@ -39,10 +39,12 @@ RUN apt-get -qq -y update && \
     faad \
     git \
     build-essential
-#RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile.pa OPTS="-DDSD"
+RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && git checkout ${SL_COMMIT}
+RUN cd /tmp/squeezelite && make -f Makefile.pa OPTS="-DDSD" && mv /tmp/squeezelite/squeezelite-pa /tmp/squeezelite.pa
+RUN cd /tmp/squeezelite && make clean
+RUN cd /tmp/squeezelite && make -f Makefile OPTS="-DDSD -DRESAMPLE -DVISEXPORT"
 #RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile OPTS="-DDSD"
-RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && git checkout ${SL_COMMIT} && make -f Makefile OPTS="-DDSD -DRESAMPLE -DVISEXPORT"
-RUN if [ -x /tmp//tmp/squeezelite/squeezelite-pa ];then mv /tmp/squeezelite/squeezelite-pa /tmp/squeezelite/squeezelite;fi
+#RUN if [ -x /tmp//tmp/squeezelite/squeezelite-pa ];then mv /tmp/squeezelite/squeezelite-pa /tmp/squeezelite/squeezelite;fi
 #  -DOPUS -DALAC -DRESAMPLE -DVISEXPORT -DDSD -DIR -DGPIO -DRPI -DUSE_SSL -DLINKALL -I./include -I./include/opus -I./include/alac 
 
 FROM base
@@ -73,7 +75,8 @@ RUN apt-get -qq -y update && \
     libflac8 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/run/*
 COPY rootfs /
-COPY --from=builder /tmp/squeezelite/squeezelite /usr/local/bin/squeezelite
+COPY --from=builder /tmp/squeezelite/squeezelite /usr/local/bin/squeezelite.alsa
+COPY --from=builder /tmp/squeezelite.pa /usr/local/bin/squeezelite.pa
 
 # Labels
 LABEL \

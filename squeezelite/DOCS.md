@@ -1,10 +1,11 @@
 # Squeezelite player for Logitech Media Server on Home Assistant
 
 ##  Description
-Runs the [Squeezelite](https://github.com/ralph-irving/squeezelite) player on home assistant. 
+Runs the [Squeezelite][squeezelite] player on home assistant.
 
 Squeezelite requires a Logitech Media Server in your network \
-Please visit [Logitech Media Server](https://github.com/pssc/ha-addon-lms/) page to install the server (if required).
+Please visit [Logitech Media Server][Logitech Media Server Addon] page to install the server \
+(if required).
 
 ## Install
 1. Add this url to your hass.io addons repos: \
@@ -17,6 +18,13 @@ Please visit [Logitech Media Server](https://github.com/pssc/ha-addon-lms/) page
 2. Run
 3. Update the config with your own options change name in Logitech Media Server.
 4. Check add-on logs for possible outputs and supported parameters.
+
+## Direct Hardware Output
+1. Run in Protection mode disabled.
+2. Run and look in the logs of the addon-on at the audio output list. Note the name of the output you want to use start with the sysdefault:CARD=X
+3. On the config tab "Select Show unused optional configuration options"
+for output insert the name noted there.
+4. Restart addon and check log output
 
 ##  Config parameters
 
@@ -44,6 +52,6 @@ Passed to squeezelite on startup after above options are processed
 
 ##  Urls
 [Add-on link](https://github.com/pssc/ha-addon-squeezelite/) \
-[Logitech Media Server](https://github.com/pssc/ha-addon-lms/) \
+[Logitech Media Server Addon](https://github.com/pssc/ha-addon-lms/) \
 [Squeezelite](https://github.com/ralph-irving/squeezelite) \
 

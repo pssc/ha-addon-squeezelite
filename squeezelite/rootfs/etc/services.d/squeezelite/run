@@ -38,7 +38,7 @@ fi
 # ouput
 if bashio::config.has_value 'output';then
    output="-o $(bashio::config 'output')"
-   bashio::log.info 'Using Squeezelite alsa version'
+   bashio::log.info 'Using Squeezelite alsa version for '"${output}"
    ln -s /usr/local/bin/squeezelite.alsa /usr/local/bin/squeezelite
 else
    bashio::log.info 'Using Squeezelite pulse audio version'

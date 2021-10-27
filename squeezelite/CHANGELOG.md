@@ -1,3 +1,8 @@
+## [0.0.11] 2021-10-25+
+
+### Changes
+ - Improve output dervice information
+
 ## [0.0.10] 2021-10-25
 
 ### Fixes

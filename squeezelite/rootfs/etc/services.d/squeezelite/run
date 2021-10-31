@@ -10,6 +10,10 @@ declare output
 declare clientmac
 declare loglevel
 
+#Show possible outputs (easier to change outputs)
+bashio::log.info 'Squeezelite possible outputs...'
+squeezelite -l
+
 bashio::log.info 'Starting the Squeezelite options processing...'
 
 # Are we running in debug mode?
@@ -38,10 +42,10 @@ fi
 # ouput
 if bashio::config.has_value 'output';then
    output="-o $(bashio::config 'output')"
-   bashio::log.info 'Using Squeezelite alsa version for '"${output}"
+   bashio::log.info 'Using Squeezelite alsa version for '"${output}"' on '"$(arch)"
    ln -s /usr/local/bin/squeezelite.alsa /usr/local/bin/squeezelite
 else
-   bashio::log.info 'Using Squeezelite pulse audio version'
+   bashio::log.info 'Using Squeezelite pulse audio version on '$(arch)
    output=""
    ln -s /usr/local/bin/squeezelite.pa /usr/local/bin/squeezelite
 fi
@@ -61,9 +65,6 @@ if bashio::config.has_value 'options'; then
   options+=($(bashio::config 'options'))
 fi
 
-#Show possible outputs (easier to change outputs)
-bashio::log.info 'Squeezelite possible outputs...'  
-squeezelite -l
 
 # Start the squeezelite client Player
 bashio::log.info 'squeezelite' -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}

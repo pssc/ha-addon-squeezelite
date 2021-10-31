@@ -1,7 +1,7 @@
 ## [0.0.11] 2021-10-25+
 
 ### Changes
- - Improve output dervice information
+ - Improve output, reoder and include device information and arch
 
 ## [0.0.10] 2021-10-25
 

@@ -9,10 +9,8 @@ declare server
 declare output
 declare clientmac
 declare loglevel
+declare build
 
-#Show possible outputs (easier to change outputs)
-bashio::log.info 'Squeezelite possible outputs...'
-squeezelite.alsa -l
 
 bashio::log.info 'Starting the Squeezelite options processing...'
 
@@ -37,6 +35,7 @@ else
    #   echo "HA-Addon-Squeezelite" >/data/name
    #fi
    name="-N /data/name"
+   bashio::log.info 'Squeezelite client name:'"$(</data/name)"
 fi
 
 # ouput
@@ -44,15 +43,17 @@ if bashio::config.has_value 'output';then
    output="-o $(bashio::config 'output')"
    bashio::log.info 'Using Squeezelite alsa build for '"${output}"' on '"$(arch)"
    ln -s /usr/local/bin/squeezelite.alsa /usr/local/bin/squeezelite
+   build='alsa'
 else
-   bashio::log.info 'Using Squeezelite pulse audio version on '$(arch)
+   bashio::log.info 'Using Squeezelite pulse audio version on '"$(arch)"
    output=""
    ln -s /usr/local/bin/squeezelite.pulse /usr/local/bin/squeezelite
+   build='pulse'
 fi
 
 # build
 if bashio::config.has_value 'build';then
-   output="-o $(bashio::config 'output')"
+   build="$(bashio::config 'build')"
    bashio::log.info 'Forcing Squeezelite build '"${build}"
    rm -f /usr/local/bin/squeezelite
    ln -s /usr/local/bin/squeezelite.${build} /usr/local/bin/squeezelite
@@ -73,6 +74,13 @@ if bashio::config.has_value 'options'; then
   options+=($(bashio::config 'options'))
 fi
 
+#Show possible outputs (easier to change outputs)
+bashio::log.info 'Squeezelite possible outputs(alsa)...'
+squeezelite.alsa -l
+if [ "${build}" != 'alsa' ];then
+   bashio::log.info 'Squeezelite possible outputs('"${build}"')...'
+   squeezelite -l
+fi
 
 # Start the squeezelite client Player
 bashio::log.info 'squeezelite' -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}

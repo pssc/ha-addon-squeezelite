@@ -42,7 +42,7 @@ rather than the pulse audio build.
 A "dummy mac" to make the player unique otherwise a random one is generated per install.
 
 ### Option (optional): `server`
-Host or IP to for squeezelite player to connect otherwise autodiscover will be used. \
+Host or IP to for squeezelite player to connect otherwise autodiscover will be used.
 
 ### Option (optional): `log_level`
 Only "none|info||debug|trace" are valid.
@@ -57,5 +57,5 @@ Passed to squeezelite on startup after above options are processed
 ##  Urls
 [Add-on link](https://github.com/pssc/ha-addon-squeezelite/) \
 [Logitech Media Server Addon](https://github.com/pssc/ha-addon-lms/) \
-[Squeezelite](https://github.com/ralph-irving/squeezelite) \
+[Squeezelite](https://github.com/ralph-irving/squeezelite)
 

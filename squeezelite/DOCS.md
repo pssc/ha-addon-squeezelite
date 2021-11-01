@@ -47,6 +47,10 @@ Host or IP to for squeezelite player to connect otherwise autodiscover will be u
 ### Option (optional): `log_level`
 Only "none|info||debug|trace" are valid.
 
+### Option (optional): `build`
+Selects the squeezelite build to use (overrides switch to alsa on output option use).
+Only "pa|pulse|alsa" are valid.
+
 ### Option (optioal): `options`
 Passed to squeezelite on startup after above options are processed
 

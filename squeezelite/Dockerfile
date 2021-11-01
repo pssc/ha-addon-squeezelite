@@ -36,13 +36,16 @@ RUN apt-get -qq -y update && \
     libssl-dev \
     libopusfile-dev \
     libflac-dev \
+    libpulse-dev \
     faad \
     git \
     build-essential
 RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && git checkout ${SL_COMMIT}
-RUN cd /tmp/squeezelite && make -f Makefile.pa OPTS="-DDSD" && mv /tmp/squeezelite/squeezelite-pa /tmp/squeezelite.pa
+RUN cd /tmp/squeezelite && OPTS="-DVISEXPORT -DDSD" make -f Makefile.pa && mv /tmp/squeezelite/squeezelite-pa /tmp/squeezelite.pa
 RUN cd /tmp/squeezelite && make clean
-RUN cd /tmp/squeezelite && make -f Makefile OPTS="-DDSD -DRESAMPLE -DVISEXPORT"
+RUN cd /tmp/squeezelite && OPTS="-DVISEXPORT" make -f Makefile.pulse && mv /tmp/squeezelite/squeezelite-pulse /tmp/squeezelite.pulse
+RUN cd /tmp/squeezelite && make clean
+RUN cd /tmp/squeezelite && OPTS="-DDSD -DRESAMPLE -DVISEXPORT" make -f Makefile
 #RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile OPTS="-DDSD"
 #RUN if [ -x /tmp//tmp/squeezelite/squeezelite-pa ];then mv /tmp/squeezelite/squeezelite-pa /tmp/squeezelite/squeezelite;fi
 #  -DOPUS -DALAC -DRESAMPLE -DVISEXPORT -DDSD -DIR -DGPIO -DRPI -DUSE_SSL -DLINKALL -I./include -I./include/opus -I./include/alac 
@@ -74,8 +77,10 @@ RUN apt-get -qq -y update && \
     libopusfile0 \
     libflac8 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/run/*
+
 COPY rootfs /
 COPY --from=builder /tmp/squeezelite/squeezelite /usr/local/bin/squeezelite.alsa
+COPY --from=builder /tmp/squeezelite.pulse /usr/local/bin/squeezelite.pulse
 COPY --from=builder /tmp/squeezelite.pa /usr/local/bin/squeezelite.pa
 
 # Labels

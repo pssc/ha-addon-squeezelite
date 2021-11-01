@@ -12,7 +12,7 @@ declare loglevel
 
 #Show possible outputs (easier to change outputs)
 bashio::log.info 'Squeezelite possible outputs...'
-squeezelite -l
+squeezelite.alsa -l
 
 bashio::log.info 'Starting the Squeezelite options processing...'
 
@@ -42,12 +42,20 @@ fi
 # ouput
 if bashio::config.has_value 'output';then
    output="-o $(bashio::config 'output')"
-   bashio::log.info 'Using Squeezelite alsa version for '"${output}"' on '"$(arch)"
+   bashio::log.info 'Using Squeezelite alsa build for '"${output}"' on '"$(arch)"
    ln -s /usr/local/bin/squeezelite.alsa /usr/local/bin/squeezelite
 else
    bashio::log.info 'Using Squeezelite pulse audio version on '$(arch)
    output=""
-   ln -s /usr/local/bin/squeezelite.pa /usr/local/bin/squeezelite
+   ln -s /usr/local/bin/squeezelite.pulse /usr/local/bin/squeezelite
+fi
+
+# build
+if bashio::config.has_value 'build';then
+   output="-o $(bashio::config 'output')"
+   bashio::log.info 'Forcing Squeezelite build '"${build}"
+   rm -f /usr/local/bin/squeezelite
+   ln -s /usr/local/bin/squeezelite.${build} /usr/local/bin/squeezelite
 fi
 
 # mac

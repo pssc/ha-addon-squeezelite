@@ -21,6 +21,7 @@
   },
   "schema": {
     "log_level": "list(info|debug)?",
+    "build": "list(pa|alsa|pulse)?",
     "server": "str?",
     "output": "str?",
     "name": "str?",

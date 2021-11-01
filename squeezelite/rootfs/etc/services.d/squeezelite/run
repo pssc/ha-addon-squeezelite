@@ -35,7 +35,9 @@ else
    #   echo "HA-Addon-Squeezelite" >/data/name
    #fi
    name="-N /data/name"
-   bashio::log.info 'Squeezelite client name:'"$(</data/name)"
+   if [ -r /data/name ];then
+     bashio::log.info 'Squeezelite client name:'"$(</data/name)"
+   fi
 fi
 
 # ouput

@@ -10,6 +10,7 @@ declare output
 declare clientmac
 declare loglevel
 declare build
+declare nice
 
 
 bashio::log.info 'Starting the Squeezelite options processing...'
@@ -41,6 +42,7 @@ else
 fi
 
 # ouput
+rm -f /usr/local/bin/squeezelite
 if bashio::config.has_value 'output';then
    output="-o $(bashio::config 'output')"
    bashio::log.info 'Using Squeezelite alsa build for '"${output}"' on '"$(arch)"
@@ -76,6 +78,10 @@ if bashio::config.has_value 'options'; then
   options+=($(bashio::config 'options'))
 fi
 
+if bashio::config.has_value 'nice'; then
+  nice=$(bashio::config 'nice')
+fi
+
 #Show possible outputs (easier to change outputs)
 bashio::log.info 'Squeezelite possible outputs(alsa)...'
 squeezelite.alsa -l
@@ -85,5 +91,6 @@ if [ "${build}" != 'alsa' ];then
 fi
 
 # Start the squeezelite client Player
-bashio::log.info 'squeezelite' -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}
-squeezelite -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}
+bashio::log.info nice -n ${nice:-'-5'} 'squeezelite' -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}
+if [ "${loglevel}" = "debug" ];then sleep 5;fi
+nice -n ${nice:-'-5'} squeezelite -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}

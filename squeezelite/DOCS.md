@@ -51,6 +51,9 @@ Only "none|info||debug|trace" are valid.
 Selects the squeezelite build to use (overrides switch to alsa on output option use).
 Only "pa|pulse|alsa" are valid.
 
+### Option (optional): `nice`
+Nice value to start squeezelite with defaults to `-5`.
+
 ### Option (optioal): `options`
 Passed to squeezelite on startup after above options are processed
 

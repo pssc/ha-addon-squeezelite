@@ -40,7 +40,7 @@ RUN apt-get -qq -y update && \
     faad \
     git \
     build-essential
-COPY squeezelite /src/squeezelite
+COPY squeezelite /src/
 RUN cd /src && if [ ! -r squeezelite/Makefile ]; then git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && git checkout ${SL_COMMIT};fi
 COPY patches /src/patches
 RUN for i in /src/patches/*.patch;do if [ -r $i ];then patch -d / -p1 -i $i;fi ;done

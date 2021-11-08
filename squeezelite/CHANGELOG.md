@@ -1,9 +1,10 @@
-## [0.0.12] 2021-11-03
+## [0.0.12] 2021-11-08
 
 ### Add
  - nice -5 default scheduling.
  - Config option for nice value.
  - Add extra capacbilties for nice and memory locking for alsa build.
+ - Add support for pathcing squeezelite and local source
 
 ## [0.0.11] 2021-11-01
 

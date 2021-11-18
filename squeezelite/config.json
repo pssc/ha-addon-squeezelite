@@ -1,6 +1,6 @@
 {
   "name": "Squeezelite",
-  "version": "0.12",
+  "version": "0.13",
   "slug": "squeezelite",
   "description": "Squeezelite player for Logitech Media Server on home assistant",
   "url": "https://github.com/pssc/ha-addon-squeezelite",
@@ -20,7 +20,7 @@
   "options": {
   },
   "schema": {
-    "log_level": "list(info|debug)?",
+    "log_level": "list(error|warning|notice|info|debug|trace)?",
     "build": "list(pa|alsa|pulse)?",
     "server": "str?",
     "output": "str?",

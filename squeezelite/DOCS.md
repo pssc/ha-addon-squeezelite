@@ -45,7 +45,7 @@ A "dummy mac" to make the player unique otherwise a random one is generated per 
 Host or IP to for squeezelite player to connect otherwise autodiscover will be used.
 
 ### Option (optional): `log_level`
-Only "none|info||debug|trace" are valid.
+Only "none(warn)|warn|notice|info|debug|trace" are valid.  These are mapped through to loglevels for squeezelite
 
 ### Option (optional): `build`
 Selects the squeezelite build to use (overrides switch to alsa on output option use).

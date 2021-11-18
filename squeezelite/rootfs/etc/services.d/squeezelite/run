@@ -15,12 +15,23 @@ declare nice
 
 bashio::log.info 'Starting the Squeezelite options processing...'
 
-# Are we running in debug mode?
-if bashio::debug; then
-  loglevel=debug
+if bashio::config.exists log_level; then
+   loglevel=$(bashio::config 'log_level')
+   if [ "$loglevel" = "trace" ];then
+      bashio::log.info 'Mapping squeezelite log level from HA trace to sdebug'
+      loglevel="sdebug"
+   fi
+   if [ "$loglevel" = "warning" ];then
+      loglevel="warn"
+   fi
+   if [ "$loglevel" = "notice" ];then
+      bashio::log.notice 'Mapping squeezelite log level from HA notice to warn'
+      loglevel="warn"
+   fi
 else
-  loglevel=info
+   loglevel="warn"
 fi
+
 
 # Server
 if bashio::config.has_value 'server'; then
@@ -32,9 +43,6 @@ fi
 if bashio::config.has_value 'name';then
    name="-n '$(bashio::config 'name')'"
 else
-   #if [ ! -r /data/name ];then
-   #   echo "HA-Addon-Squeezelite" >/data/name
-   #fi
    name="-N /data/name"
    if [ -r /data/name ];then
      bashio::log.info 'Squeezelite client name:'"$(</data/name)"
@@ -82,12 +90,14 @@ if bashio::config.has_value 'nice'; then
   nice=$(bashio::config 'nice')
 fi
 
-#Show possible outputs (easier to change outputs)
-bashio::log.info 'Squeezelite possible outputs(alsa)...'
-squeezelite.alsa -l
-if [ "${build}" != 'alsa' ];then
-   bashio::log.info 'Squeezelite possible outputs('"${build}"')...'
-   squeezelite -l
+if [[ "${__BASHIO_LOG_LEVEL}" -ge "${__BASHIO_LOG_LEVEL_NOTICE}" ]]; then
+   #Show possible outputs (easier to change outputs)
+   bashio::log.notice 'Squeezelite possible outputs(alsa)...'
+   squeezelite.alsa -l
+   if [ "${build}" != 'alsa' ];then
+      bashio::log.notice 'Squeezelite possible outputs('"${build}"')...'
+      squeezelite -l
+   fi
 fi
 
 # Start the squeezelite client Player

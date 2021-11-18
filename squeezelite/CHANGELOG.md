@@ -1,5 +1,7 @@
-## [0.0.13] 2021-11-10
+## [0.0.13] 2021-11-18
 
+### Changes
+ - Better logging options for squeezlite and addon
 
 ## [0.0.12] 2021-11-08
 

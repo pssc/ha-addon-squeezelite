@@ -52,7 +52,7 @@ Selects the squeezelite build to use (overrides switch to alsa on output option 
 Only "pa|pulse|alsa" are valid.
 
 ### Option (optional): `nice`
-Nice value to start squeezelite with defaults to `-5`.
+Nice value to start squeezelite with defaults to `-10`.
 
 ### Option (optioal): `options`
 Passed to squeezelite on startup after above options are processed

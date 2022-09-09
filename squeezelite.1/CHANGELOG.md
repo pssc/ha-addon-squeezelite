@@ -1,0 +1,1 @@
+../squeezelite/CHANGELOG.md

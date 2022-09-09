@@ -1,1 +1,0 @@
-../squeezelite/DOCS.md

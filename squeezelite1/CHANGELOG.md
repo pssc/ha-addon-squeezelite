@@ -1,3 +1,9 @@
+## [0.0.15] 2023-01-05
+
+### Changes
+ - squeezelite to commit 71832fb3db447b8b89e08ce907247219a18da509
+ - Add resample option to pulse build
+
 ## [0.0.14] 2022-04-03
 
 ### Changes

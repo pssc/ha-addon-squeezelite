@@ -1,6 +1,6 @@
 {
   "name": "Squeez5lite Clone 1",
-  "version": "0.14",
+  "version": "0.15",
   "slug": "squeezelite1",
   "description": "Squeezelite player for Logitech Media Server on home assistant",
   "url": "https://github.com/pssc/ha-addon-squeezelite",

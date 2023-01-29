@@ -47,7 +47,7 @@ RUN for i in /src/patches/*.patch;do if [ -r $i ];then patch -d / -p1 -i $i;fi ;
 
 RUN cd /src/squeezelite && OPTS="-DVISEXPORT -DDSD" make -f Makefile.pa && mv /src/squeezelite/squeezelite-pa /src/squeezelite.pa
 RUN cd /src/squeezelite && make clean
-RUN cd /src/squeezelite && OPTS="-DVISEXPORT -DRESAMPLE" make -f Makefile.pulse && mv /src/squeezelite/squeezelite-pulse /src/squeezelite.pulse
+RUN cd /src/squeezelite && OPTS="-DVISEXPORT" make -f Makefile.pulse && mv /src/squeezelite/squeezelite-pulse /src/squeezelite.pulse
 RUN cd /src/squeezelite && make clean
 RUN cd /src/squeezelite && OPTS="-DDSD -DRESAMPLE -DVISEXPORT" make -f Makefile
 #RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile OPTS="-DDSD"

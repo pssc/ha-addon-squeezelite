@@ -15,7 +15,7 @@ ENV LANGUAGE="en_US.UTF-8"
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold" && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 FROM base AS builder
-ARG SL_COMMIT=71832fb3db447b8b89e08ce907247219a18da509
+ARG SL_COMMIT=575b59398dd19945d2038474062240fc527407fb
 
 # Install Squeezelite
 RUN apt-get -qq -y update && \
@@ -47,7 +47,7 @@ RUN for i in /src/patches/*.patch;do if [ -r $i ];then patch -d / -p1 -i $i;fi ;
 
 RUN cd /src/squeezelite && OPTS="-DVISEXPORT -DDSD" make -f Makefile.pa && mv /src/squeezelite/squeezelite-pa /src/squeezelite.pa
 RUN cd /src/squeezelite && make clean
-RUN cd /src/squeezelite && OPTS="-DVISEXPORT -DRESAMPLE" make -f Makefile.pulse && mv /src/squeezelite/squeezelite-pulse /src/squeezelite.pulse
+RUN cd /src/squeezelite && OPTS="-DVISEXPORT" make -f Makefile.pulse && mv /src/squeezelite/squeezelite-pulse /src/squeezelite.pulse
 RUN cd /src/squeezelite && make clean
 RUN cd /src/squeezelite && OPTS="-DDSD -DRESAMPLE -DVISEXPORT" make -f Makefile
 #RUN cd /tmp && git clone https://github.com/ralph-irving/squeezelite && cd squeezelite && make -f Makefile OPTS="-DDSD"
@@ -75,11 +75,11 @@ RUN apt-get -qq -y update && \
     libfaad2 \
     libsox3 \
     libsoxr0 \
-    libavformat58 \
+    libavformat59 \
     liblirc-client0 \
-    libssl1.1 \
+    libssl3 \
     libopusfile0 \
-    libflac8 && \
+    libflac12 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/run/*
 
 COPY rootfs /

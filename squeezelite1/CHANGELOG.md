@@ -1,8 +1,14 @@
-## [0.0.15] 2023-01-05
+## [0.0.16] 2023-07-17
 
 ### Changes
+ - squeezelite to commit 575b59398dd19945d2038474062240fc527407fb
+ - debian base to 7.0.0
+
+## [0.0.15] 2023-01-29
+
+## Changes
  - squeezelite to commit 71832fb3db447b8b89e08ce907247219a18da509
- - Add resample option to pulse build
+ - Trial resample on pulse build (does not work)
 
 ## [0.0.14] 2022-04-03
 

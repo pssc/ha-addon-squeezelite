@@ -1,6 +1,6 @@
 {
   "name": "Squeezelite",
-  "version": "0.16",
+  "version": "0.0.17",
   "slug": "squeezelite",
   "description": "Squeezelite player for Logitech Media Server on home assistant",
   "url": "https://github.com/pssc/ha-addon-squeezelite",

@@ -18,10 +18,10 @@ Create an [issue on github][issues], or if its a general query ask on the [home 
 
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-beta-yellow.svg
-[release-shield]: https://img.shields.io/badge/version-v0.16-yellow.svg
+[release-shield]: https://img.shields.io/badge/version-v0.17-yellow.svg
 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
-[i386-shield]: https://img.shields.io/badge/i386-yes-green.svg
+[i386-shield]: https://img.shields.io/badge/i386-yes-yellow.svg
 [armhf-shield]: https://img.shields.io/badge/armhf-yes-green.svg
 [armv7-shield]: https://img.shields.io/badge/armv7-yes-green.svg
 [aarch64-shield]: https://img.shields.io/badge/aarch64-yes-green.svg

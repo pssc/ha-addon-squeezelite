@@ -1,7 +1,7 @@
 name: Squeezelite
 version: 0.0.19
 slug: squeezelite
-description: Squeezelite player for Logitech Media Server on home assistant
+description: Squeezelite player for LMS the Lyrion Music Server, formerly the Logitech Media Server on home assistant
 url: https://github.com/pssc/ha-addon-squeezelite
 startup: services
 arch:

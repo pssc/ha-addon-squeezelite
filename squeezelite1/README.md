@@ -1,6 +1,6 @@
 # Home Assistant Community Add-on: Squeezelite player
 
-A complete and easy way to run the [Squeezelite][squeezelite] player for [Logitech Media Server][lms].
+A complete and easy way to run the [Squeezelite][squeezelite] player for [LMS the Lyrion Music Server, formerly the Logitech Media Server on home assistant][lms].
 
 [![Open your Home Assistant instance and show the add add-on repository dialog with a specific repository URL pre-filled.](https://my.home-assistant.io/badges/supervisor_add_addon_repository.svg)](https://my.home-assistant.io/redirect/supervisor_add_addon_repository/?repository_url=https%3A%2F%2Fgithub.com%2Fpssc%2Fha-addon-squeezelite%2F) or use the following addon repo manually https://github.com/pssc/ha-addon-squeezelite/ in the supervisor addon tab following the stacked triple dots and selecting repositories.
 
@@ -16,9 +16,9 @@ Please visit [Logitech Media Server Add-on](https://github.com/pssc/ha-addon-lms
 ## Support
 Create an [issue on github][issues], or if its a general query ask on the [home assistant thread][forum]
 
-[maintenance-shield]: https://img.shields.io/maintenance/yes/2023.svg
+[maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-beta-yellow.svg
-[release-shield]: https://img.shields.io/badge/version-v0.17-yellow.svg
+[release-shield]: https://img.shields.io/badge/version-v0.19-yellow.svg
 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-yellow.svg

@@ -1,0 +1,106 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Home Assistant Community Add-on: Squeezelite
+# Runs squeezelite with given options
+# ==============================================================================
+declare -a options
+declare name
+declare server
+declare output
+declare clientmac
+declare loglevel
+declare build
+declare nice
+
+
+bashio::log.info 'Starting the Squeezelite options processing...'
+
+if bashio::config.exists log_level; then
+   loglevel=$(bashio::config 'log_level')
+   if [ "$loglevel" = "trace" ];then
+      bashio::log.info 'Mapping squeezelite log level from HA trace to sdebug'
+      loglevel="sdebug"
+   fi
+   if [ "$loglevel" = "warning" ];then
+      loglevel="warn"
+   fi
+   if [ "$loglevel" = "notice" ];then
+      bashio::log.notice 'Mapping squeezelite log level from HA notice to warn'
+      loglevel="warn"
+   fi
+else
+   loglevel="warn"
+fi
+
+
+# Server
+if bashio::config.has_value 'server'; then
+  server=$(bashio::config 'server')
+  options+=( -s ${server})
+fi
+
+# Name
+if bashio::config.has_value 'name';then
+   name="-n '$(bashio::config 'name')'"
+else
+   name="-N /data/name"
+   if [ -r /data/name ];then
+     bashio::log.info 'Squeezelite client name:'"$(</data/name)"
+   fi
+fi
+
+# ouput
+rm -f /usr/local/bin/squeezelite
+if bashio::config.has_value 'output';then
+   output="-o $(bashio::config 'output')"
+   bashio::log.info 'Using Squeezelite alsa build for '"${output}"' on '"$(arch)"
+   ln -s /usr/local/bin/squeezelite.alsa /usr/local/bin/squeezelite
+   build='alsa'
+else
+   bashio::log.info 'Using Squeezelite pulse audio version on '"$(arch)"
+   output=""
+   ln -s /usr/local/bin/squeezelite.pulse /usr/local/bin/squeezelite
+   build='pulse'
+fi
+
+# build
+if bashio::config.has_value 'build';then
+   build="$(bashio::config 'build')"
+   bashio::log.info 'Forcing Squeezelite build '"${build}"
+   rm -f /usr/local/bin/squeezelite
+   ln -s /usr/local/bin/squeezelite.${build} /usr/local/bin/squeezelite
+fi
+
+# mac
+## set or random
+if bashio::config.has_value 'clientmac'; then
+   clientmac=$(bashio::config 'clientmac')
+else
+   if [ ! -r /data/mac ];then
+      openssl rand -hex 6 | sed 's/\(..\)/\1:/g; s/:$//' >/data/mac
+   fi
+   clientmac=$(</data/mac)
+fi
+
+if bashio::config.has_value 'options'; then
+  options+=($(bashio::config 'options'))
+fi
+
+if bashio::config.has_value 'nice'; then
+  nice=$(bashio::config 'nice')
+fi
+
+if [[ "${__BASHIO_LOG_LEVEL}" -ge "${__BASHIO_LOG_LEVEL_NOTICE}" ]]; then
+   #Show possible outputs (easier to change outputs)
+   bashio::log.notice 'Squeezelite possible outputs(alsa)...'
+   squeezelite.alsa -l
+   if [ "${build}" != 'alsa' ];then
+      bashio::log.notice 'Squeezelite possible outputs('"${build}"')...'
+      squeezelite -l
+   fi
+fi
+
+# Start the squeezelite client Player
+bashio::log.info nice -n ${nice:-'-10'} 'squeezelite' -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}
+if [ "${loglevel}" = "debug" ];then sleep 5;fi
+nice -n ${nice:-'-10'} squeezelite -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}

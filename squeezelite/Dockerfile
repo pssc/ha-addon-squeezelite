@@ -15,7 +15,7 @@ ENV LANGUAGE="en_US.UTF-8"
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold" && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 FROM base AS builder
-ARG SL_COMMIT=0e85ddfd79337cdc30b7d29922b1d790600bb6b4
+ARG SL_COMMIT=279ac086053239323f5c4df965342e3be5d10671
 
 # Install Squeezelite
 RUN apt-get -qq -y update && \

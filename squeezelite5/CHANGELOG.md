@@ -4,7 +4,7 @@
  - squeezelite to commit 279ac086053239323f5c4df965342e3be5d10671
 
 ### Fixes
- - Name Setting quoting issues
+ - Name setting quoting issues
 
 ## [0.0.19] 2024-05-28
 ### Changes

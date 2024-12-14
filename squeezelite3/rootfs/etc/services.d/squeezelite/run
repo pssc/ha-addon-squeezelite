@@ -41,11 +41,11 @@ fi
 
 # Name
 if bashio::config.has_value 'name';then
-   name="-n '$(bashio::config 'name')'"
+   printf "$(bashio::config 'name')" >/data/name
+   bashio::log.info 'Setting squeezelite client name:'"$(</data/name)"
 else
-   name="-N /data/name"
    if [ -r /data/name ];then
-     bashio::log.info 'Squeezelite client name:'"$(</data/name)"
+      bashio::log.info 'Squeezelite client name:'"$(</data/name)"
    fi
 fi
 
@@ -101,6 +101,6 @@ if [[ "${__BASHIO_LOG_LEVEL}" -ge "${__BASHIO_LOG_LEVEL_NOTICE}" ]]; then
 fi
 
 # Start the squeezelite client Player
-bashio::log.info nice -n ${nice:-'-10'} 'squeezelite' -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}
+bashio::log.info nice -n ${nice:-'-10'} 'squeezelite' -M SqueezeLite-HA-Addon -N /data/name ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}
 if [ "${loglevel}" = "debug" ];then sleep 5;fi
-nice -n ${nice:-'-10'} squeezelite -M SqueezeLite-HA-Addon ${name} ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}
+nice -n ${nice:-'-10'} squeezelite -M SqueezeLite-HA-Addon -N /data/name ${output} -m "$clientmac" -d "all=${loglevel}" ${options[@]}

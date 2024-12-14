@@ -18,7 +18,7 @@ Create an [issue on github][issues], or if its a general query ask on the [home 
 
 [maintenance-shield]: https://img.shields.io/maintenance/yes/2024.svg
 [project-stage-shield]: https://img.shields.io/badge/project%20stage-beta-yellow.svg
-[release-shield]: https://img.shields.io/badge/version-v0.19-yellow.svg
+[release-shield]: https://img.shields.io/badge/version-v0.20-yellow.svg
 
 [amd64-shield]: https://img.shields.io/badge/amd64-yes-green.svg
 [i386-shield]: https://img.shields.io/badge/i386-yes-yellow.svg

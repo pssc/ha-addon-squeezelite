@@ -3,6 +3,7 @@ MASTER="squeezelite"
 FILEZ="CHANGELOG.md  DOCS.md  Dockerfile  README.md  build.json  config.yaml  icon.png  logo.png  patches  rootfs  squeezelite"
 
 set -u 
+touch ${MASTER}/config.yaml || exit 1
 
 for i in ${CLONEZ};do
 	mkdir -p ${MASTER}${i}

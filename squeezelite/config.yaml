@@ -24,6 +24,7 @@ privileged:
   - IPC_LOCK
 host_network: true
 udev: true
+usb: true
 audio: true
 full_access: true
 stage: experimental

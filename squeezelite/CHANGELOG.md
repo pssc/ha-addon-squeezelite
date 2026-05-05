@@ -1,3 +1,12 @@
+## [0.0.22] 2025-05-05
+### Changes
+ - debian base to 9.3.0
+ - squeezelite to commit 39fe3c8b1dd4e852fd8410bc480d7d709056859d
+ - enable usb
+ - remove old arches
+ - Bump to libavformat61 & libflac14
+ - use tmpfs for /tmp
+
 ## [0.0.21] 2025-05-24
 ### Changes
  - debian base to 7.8.3

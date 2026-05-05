@@ -26,6 +26,7 @@ host_network: true
 udev: true
 usb: true
 audio: true
+tmpfs: true
 full_access: true
 stage: experimental
 options: {}

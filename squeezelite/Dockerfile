@@ -1,4 +1,4 @@
-ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base/aarch64:7.3.3
+ARG BUILD_FROM=ghcr.io/hassio-addons/debian-base:9.3.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM} AS base
 
@@ -15,7 +15,7 @@ ENV LANGUAGE="en_US.UTF-8"
 RUN apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold" && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 FROM base AS builder
-ARG SL_COMMIT=bb7ae0615f6e661c217a1c77fdff70122859c3c5
+ARG SL_COMMIT=39fe3c8b1dd4e852fd8410bc480d7d709056859d
 
 # Install Squeezelite
 RUN apt-get -qq -y update && \
@@ -76,11 +76,11 @@ RUN apt-get -qq -y update && \
     libfaad2 \
     libsox3 \
     libsoxr0 \
-    libavformat59 \
+    libavformat61 \
     liblirc-client0 \
     libssl3 \
     libopusfile0 \
-    libflac12 && \
+    libflac14 && \
     apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* /var/run/*
 
 COPY rootfs /
